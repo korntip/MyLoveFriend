@@ -21,10 +21,12 @@
 
         <!--Avatar-->
         <ImageView
+            android:scaleType="fitCenter"
+            android:id="@+id/imvAvatar"
             android:layout_gravity="center_horizontal"
             android:src="@drawable/avatar"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="128dp" />
 
         <!--Name-->
         <LinearLayout
