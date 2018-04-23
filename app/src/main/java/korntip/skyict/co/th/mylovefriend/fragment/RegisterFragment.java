@@ -10,18 +10,23 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import korntip.skyict.co.th.mylovefriend.MainActivity;
 import korntip.skyict.co.th.mylovefriend.R;
+import korntip.skyict.co.th.mylovefriend.utillity.MyAlert;
 
 public class RegisterFragment extends Fragment {
 
     //    Explict
     private Uri uri;
     private ImageView imageView;
+    private boolean aBoolean = true;    // true ==> Non Choose Avatar
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -36,11 +41,44 @@ public class RegisterFragment extends Fragment {
     }   // OnActivity
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == R.id.itemUpload) {
+
+//            To Do
+            checkAvatarAnText();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void checkAvatarAnText() {
+
+//        Check Avatar
+        if (aBoolean) {
+//            No Avatar
+            MyAlert myAlert = new MyAlert(getActivity());
+            myAlert.normalDialog("No Avatar", "Please Choose Image");
+        }
+
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+
+        inflater.inflate(R.menu.menu_register, menu);
+
+    }
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == getActivity().RESULT_OK) {
 
+            aBoolean = false;   // ==> Choose Avatar Success
             uri = data.getData();
 
             try {
@@ -90,6 +128,10 @@ public class RegisterFragment extends Fragment {
                 getActivity().getSupportFragmentManager().popBackStack();
             }
         });
+
+        setHasOptionsMenu(true);
+
+
     }
 
     @Nullable
