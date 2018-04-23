@@ -29,6 +29,7 @@ public class MainFragment extends Fragment {
                         .replace(R.id.contentMainFragment, new RegisterFragment())
                         .addToBackStack(null)
                         .commit();
+
             }
         });
 
